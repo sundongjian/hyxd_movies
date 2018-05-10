@@ -1,6 +1,8 @@
-import pandas
-import json
+'''
+提取b=并处理华谊兄弟电影票房信息
+'''
 
+import pandas
 hyfx_movies = pandas.read_excel('../data/hyfx.xlsx')
 hyzz_movies = pandas.read_excel('../data/hyzz.xlsx')
 

@@ -1,5 +1,9 @@
-import pandas
+'''
+这个当做备用，有几种特征处理方法
+'''
 import numpy
+import pandas
+
 
 
 def get_all_movies():

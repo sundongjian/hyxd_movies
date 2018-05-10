@@ -1,6 +1,10 @@
-import requests
+'''
+采集华谊兄弟市场详情
+'''
 import json
 import pandas
+import requests
+
 
 re = requests.get('http://q.stock.sohu.com/hisHq?code=cn_300027&start=20111113&'
                   'end=20180320&stat=1&order=D&period=d&callback=historySearchHand'

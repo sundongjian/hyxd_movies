@@ -1,6 +1,10 @@
+'''
+采集华谊兄弟电影名单
+'''
 import requests
-from bs4 import BeautifulSoup
 import pandas
+
+from bs4 import BeautifulSoup
 
 
 def get_response(url):

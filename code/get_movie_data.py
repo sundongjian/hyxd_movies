@@ -1,8 +1,12 @@
-import requests
-from bs4 import BeautifulSoup
+'''
+采集电影票房总数据
+'''
 import datetime
 import pandas
+import requests
 import time
+
+from bs4 import BeautifulSoup
 
 
 def creaturl(result):

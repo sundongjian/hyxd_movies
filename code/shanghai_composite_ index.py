@@ -1,9 +1,14 @@
+'''
+采集上证指数
+'''
 import requests
 import json
 import pandas
 
 re = requests.get(
-    'http://q.stock.sohu.com/hisHq?code=zs_000001&start=20111113&end=20180320&stat=1&order=D&period=d&callback=historySearchHandler&rt=jsonp&r=0.8391495715053367&0.9677250558488026')
+    'http://q.stock.sohu.com/hisHq?code=zs_000001&start=20111113&end=20180320&stat=1'
+    '&order=D&period=d&callback=historySearchHandler&rt=jsonp&r=0.8391495715053367'
+    '&0.9677250558488026')
 results = re.text.lstrip('historySearchHandler').lstrip('([')[:-3]  # rstrip失败
 re_dict = json.loads(results)
 data = re_dict["hq"]
