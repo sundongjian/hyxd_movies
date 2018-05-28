@@ -1,9 +1,9 @@
 '''
 进行最终数据处理
+文件名太长导致有些行超过了80个字符，但是改又不好改，干脆不改了
 '''
 import datetime
 import pandas
-
 
 
 def datelist(start, end):
@@ -33,13 +33,14 @@ def get_labels1(a_dates):
         date = data_hy_date[i]
         m = a_dates.index(date)  # 这是取票房的时间index
         n = sz_date.index(date)  # 这是大盘对应的时间index
-        if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i + 1] == sz_date[n - 1]:  # 如果第二天没停牌
+        if data_hy_date[i - 1] == sz_date[n + 1] \
+                and data_hy_date[i + 1] == sz_date[n - 1]:
             spreads = data_hy[data_hy['date'].isin([data_hy_date[i - 1]])].open.tolist()[0] - \
-                      data_hy[data_hy['date'].isin([date])].open.tolist()[0]  # 如果第二天没停牌
+                      data_hy[data_hy['date'].isin([date])].open.tolist()[0]
             gains = data_hy[data_hy['date'].isin([date])].open.tolist()[0] - \
                     data_hy[data_hy['date'].isin([data_hy_date[i + 1]])].close.tolist()[0]
             if a_dates[m - 1] in movie_data_date:
-                element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]  # 前一天的票房情况
+                element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]
 
                 if spreads >= 0.3:
                     price_change = 1
@@ -71,15 +72,15 @@ def get_labels2(a_dates):
         m = a_dates.index(date)  #
         n = sz_date.index(date)  # 大盘
         try:
-            if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == sz_date[n + 2] and data_hy_date[
-                        i + 1] == sz_date[n - 1]:  # 如果第二天没停牌
+            if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == \
+                    sz_date[n + 2] and data_hy_date[i + 1] == sz_date[n - 1]:
                 gains = data_hy[data_hy['date'].isin([date])].open.tolist()[0] - \
                         data_hy[data_hy['date'].isin([data_hy_date[i + 1]])].close.tolist()[0]
                 spreads1 = data_hy[data_hy['date'].isin([date])].open.tolist()[0]  # 今天
-                spreads2 = data_hy[data_hy['date'].isin([data_hy_date[i - 2]])].open.tolist()[0]  # 后天开盘价
+                spreads2 = data_hy[data_hy['date'].isin([data_hy_date[i - 2]])].open.tolist()[0]
                 price_change = spreads2 - spreads1  # 华谊兄弟价格变动只和
                 if a_dates[m - 1] in movie_data_date:
-                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]  # 前一天的票房情况
+                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]
                     if price_change >= 0.3:
                         price_change = 1
                     else:
@@ -108,15 +109,15 @@ def get_labels3(a_dates):
         m = a_dates.index(date)  #
         n = sz_date.index(date)  # 大盘
         try:
-            if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == sz_date[n + 2] and data_hy_date[
-                        i - 3] == sz_date[n + 3] and data_hy_date[i + 1] == sz_date[n - 1]:  # 如果第二天没停牌
+            if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == sz_date[n + 2] \
+                    and data_hy_date[i - 3] == sz_date[n + 3] and data_hy_date[i + 1] == sz_date[n - 1]:
                 gains = data_hy[data_hy['date'].isin([date])].open.tolist()[0] - \
                         data_hy[data_hy['date'].isin([data_hy_date[i + 1]])].close.tolist()[0]
                 price_change1 = data_hy[data_hy['date'].isin([date])].open.tolist()[0]  # 今天
-                price_change3 = data_hy[data_hy['date'].isin([data_hy_date[i - 3]])].open.tolist()[0]  # 大后天开盘易日
+                price_change3 = data_hy[data_hy['date'].isin([data_hy_date[i - 3]])].open.tolist()[0]
                 price_change = price_change3 - price_change1  # 华谊兄弟价格变动只和
                 if a_dates[m - 1] in movie_data_date:
-                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]  # 前一天的票房情况
+                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]
                     if price_change >= 0.3:
                         price_change = 1
                     else:
@@ -142,7 +143,7 @@ def get_labels4(a_dates):
     for i in range(1, len(data_hy_date) - 1):  # 这是个递减的日期
         # for date in data_hy_date:#将华谊兄弟日期列表
         date = data_hy_date[i]
-        m = a_dates.index(date)  #
+        m = a_dates.index(date)
         n = sz_date.index(date)  # 大盘
         try:
             if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == sz_date[n + 2] \
@@ -154,7 +155,7 @@ def get_labels4(a_dates):
                 price_change4 = data_hy[data_hy['date'].isin([data_hy_date[i - 4]])].open.tolist()[0]
                 price_change = price_change4 - price_change1  # 华谊兄弟价格变动只和
                 if a_dates[m - 1] in movie_data_date:
-                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]  # 前一天的票房情况
+                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]
                     if price_change >= 0.3:
                         price_change = 1
                     else:
@@ -177,25 +178,25 @@ def get_labels4(a_dates):
 
 def get_labels5(a_dates):
     all_data = []
-    for i in range(1, len(data_hy_date) - 1):  # 这是个递减的日期
-        # for date in data_hy_date:#将华谊兄弟日期列表
+    for i in range(1, len(data_hy_date) - 1):
+        # for date in data_hy_date:
         date = data_hy_date[i]
-        m = a_dates.index(date)  #
-        n = sz_date.index(date)  # 大盘
+        m = a_dates.index(date)
+        n = sz_date.index(date)
 
         try:
             if data_hy_date[i - 1] == sz_date[n + 1] and data_hy_date[i - 2] == sz_date[n + 2] \
                     and data_hy_date[i - 3] == sz_date[n + 3] \
                     and data_hy_date[i - 4] == sz_date[n + 4] \
-                    and data_hy_date[i - 5] == sz_date[n + 5] and data_hy_date[i + 1] == sz_date[n - 1]:  # 如果第二天没停牌
+                    and data_hy_date[i - 5] == sz_date[n + 5] and data_hy_date[i + 1] == sz_date[n - 1]:
                 gains = data_hy[data_hy['date'].isin([date])].open.tolist()[0] - \
                         data_hy[data_hy['date'].isin([data_hy_date[i + 1]])].close.tolist()[0]
                 price_change1 = data_hy[data_hy['date'].isin([date])].open.tolist()[0]  # 今天
                 price_change5 = data_hy[data_hy['date'].isin([data_hy_date[i - 5]])].open.tolist()[0]
-                price_change = price_change5 - price_change1  # 华谊兄弟价格变动只和
+                price_change = price_change5 - price_change1
                 if a_dates[m - 1] in movie_data_date:
-                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]  # 前一天的票房情况
-                    if price_change >= 0.3:  # 0.2的数据是错的，但是不管了，反正用不着
+                    element = movie_data[movie_data['date'].isin([a_dates[m - 1]])].to_dict('records')[0]
+                    if price_change >= 0.3:
                         price_change = 1
                     else:
                         price_change = 0
